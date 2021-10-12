@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="glad.c" />
     <ClCompile Include="Test1.cpp" />
+    <ClCompile Include="Test2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
