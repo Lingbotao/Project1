@@ -14,17 +14,21 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
+"layout (location = 0) in vec3 aPos;\n"      // 位置变量的属性位置为0
+"layout (location = 1) in vec3 aColor;\n "    // 颜色变量的属性位置为1
+
+"out vec3 ourColor;\n"                       // 向片段着色器输出一个颜色
 "void main()\n"
 "{\n"
 "   gl_Position = vec4(aPos, 1.0);\n"
+"   ourColor = aColor;\n"
 "}\0";
 const char* fragmenShaderSource = "#version 330 core\n"
 "out vec4 FragColor;\n"
-"uniform vec4 ourColor;\n"
+"in vec3 ourColor;\n"
 "void main()\n"
 "{\n"
-"   FragColor = ourColor;\n"
+"   FragColor = vec4(ourColor, 1.0f);\n"
 "}\n\0";
 int main()
 {
@@ -68,7 +72,6 @@ int main()
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmenShaderSource, NULL);
     glCompileShader(fragmentShader);
-    glCompileShader(fragmentShader);
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success)
     {
@@ -94,9 +97,10 @@ int main()
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
     float vertices[] = {
-        0.5f, -0.5f, 0.0f,   //bottom right
-        -0.5f, -0.5f, 0.0f, //bottom left
-        0.0f, 0.5f, 0.0f   //top
+        //  位置
+        0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   //bottom right
+        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   //bottom left
+        0.0f, 0.5f, 0.0f,    0.0f, 0.0f, 1.0f    //top
     };
 
     //unsigned int indices[] = {
@@ -104,7 +108,7 @@ int main()
     //    1, 2, 3
     //};
 
-    unsigned int VBO, VAO, EBO;
+    unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     //glGenBuffers(1, &EBO);
@@ -116,14 +120,19 @@ int main()
     //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     //  解析顶点数据
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    //  位置属性
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-
+    //  颜色属性
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
     //glBindBuffer(GL_ARRAY_BUFFER, 0);
     //glBindVertexArray(0);
-    glBindVertexArray(VAO);
+    //glBindVertexArray(VAO);
     //  glViewport(窗口的x坐标，窗口的y坐标，窗口的宽度，窗口的高度) 坐标以窗口的左下角为准
     //glViewport(0, 0, 800, 600);
+    //  激活程序对象
+    glUseProgram(shaderProgram);
     //  循环渲染
     while (!glfwWindowShouldClose(windows))
     {
@@ -134,27 +143,27 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         //  清除颜色缓冲后，整个颜色缓冲会被填充为glClearColor所设置的颜色
         glClear(GL_COLOR_BUFFER_BIT);
-        //  画三角形
-        glUseProgram(shaderProgram);
-        //glBindVertexArray(VAO);
 
-        float timeValue = glfwGetTime();
-        float greenValue = sin(timeValue) / 2.0f + 0.5f;
-        int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-        glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+        glBindVertexArray(VAO);
+
+        //float timeValue = glfwGetTime();
+        //float greenValue = sin(timeValue) / 2.0f + 0.5f;
+        //int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+        //glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
 
         glDrawArrays(GL_TRIANGLES, 0, 3);
+        glfwSwapBuffers(windows);
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         //激活程序对象
-        glUseProgram(shaderProgram);
+        //glUseProgram(shaderProgram);
 
         //  交换颜色缓冲  (不懂)
-        glfwSwapBuffers(windows);
+        //glfwSwapBuffers(windows);
         //  检出是否触发事件
         glfwPollEvents();
     }
     glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VAO);
+    glDeleteBuffers(1, &VBO);
     glDeleteProgram(shaderProgram);
     glfwTerminate();
     return 0;
