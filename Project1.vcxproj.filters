@@ -24,8 +24,16 @@
     <ClCompile Include="Test2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Test3.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
