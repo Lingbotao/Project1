@@ -2,6 +2,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <learnopengl/shader_s.h>
 
 //  帧缓冲大小函数
@@ -15,7 +20,7 @@ int main()
 {
     glfwInit(); // 初始化GLFW
     //  配置GLFW
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);  
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
@@ -27,7 +32,7 @@ int main()
     if (windows == NULL)
     {
         std::cout << "Failed to create GFLW window" << std::endl;
-        glfwTerminate(); 
+        glfwTerminate();
         return -1;
     }
     glfwMakeContextCurrent(windows);
@@ -40,7 +45,7 @@ int main()
         return -1;
     }
 
-    Shader ourShader("4.1.texture.vs", "4.1.texture.fs");
+    Shader ourShader("./TexTure/3.1.texture.vs", "./TexTure/3.1.texture.fs");
 
     float vertices[] = {
         // 位置                 // 颜色            // 纹理
@@ -89,7 +94,7 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     int width, height, nrChannels;
-    unsigned char* data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load("./img/container.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -111,7 +116,7 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    data = stbi_load("awesomeface.png", &width, &height, &nrChannels, 0);
+    data = stbi_load("./img/awesomeface.png", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -163,7 +168,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow *window)
+void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         //std::cout <<"按下" << std::endl;
