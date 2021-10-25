@@ -152,6 +152,9 @@
     <ClCompile Include="Test3.cpp" />
     <ClCompile Include="Test4.cpp" />
     <ClCompile Include="Test5.cpp" />
+    <ClCompile Include="Test6.cpp" />
+    <ClCompile Include="Test6_1.cpp" />
+    <ClCompile Include="Test6_2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

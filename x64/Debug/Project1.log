@@ -1,5 +1,7 @@
-﻿  Test4.cpp
-  Test5.cpp
+﻿  Test6.cpp
 F:\OpenGL\OpenGL_src\include\learnopengl\shader_s.h(56,40): warning C4101: “e”: 未引用的局部变量
+F:\OpenGL\Project1\Test6.cpp(199,20): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+F:\OpenGL\Project1\Test6.cpp(200,20): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+  Test6_1.cpp
   正在生成代码...
   Project1.vcxproj -> F:\OpenGL\Project1\x64\Debug\Project1.exe

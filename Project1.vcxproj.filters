@@ -33,6 +33,15 @@
     <ClCompile Include="Test5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Test6.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Test6_1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Test6_2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
