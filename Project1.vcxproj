@@ -80,8 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>F:\OpenGL\OpenGL_src\include;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\OpenGL\OpenGL_src\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\OpenGL\Project1\OpenGL_src\include;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\OpenGL\Project1\OpenGL_src\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
