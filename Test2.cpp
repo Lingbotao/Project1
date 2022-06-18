@@ -5,15 +5,12 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <cmath>
-
-//  帧缓冲大小函数
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
+#include "main.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-const char* vertexShaderSource = "#version 330 core\n"
+const char* vertexShaderSource_test2 = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"      // 位置变量的属性位置为0
 "layout (location = 1) in vec3 aColor;\n "    // 颜色变量的属性位置为1
 
@@ -23,14 +20,14 @@ const char* vertexShaderSource = "#version 330 core\n"
 "   gl_Position = vec4(aPos, 1.0);\n"
 "   ourColor = aColor;\n"
 "}\0";
-const char* fragmenShaderSource = "#version 330 core\n"
+const char* fragmenShaderSource_test2 = "#version 330 core\n"
 "out vec4 FragColor;\n"
 "in vec3 ourColor;\n"
 "void main()\n"
 "{\n"
 "   FragColor = vec4(ourColor, 1.0f);\n"
 "}\n\0";
-int main()
+int Test2()
 {
     std::cout << "Hello World!\n";
     glfwInit(); // 初始化GLFW
@@ -56,7 +53,7 @@ int main()
         return -1;
     }
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glShaderSource(vertexShader, 1, &vertexShaderSource_test2, NULL);
     glCompileShader(vertexShader);
 
     //  检测glComileShader编译是否成功
@@ -70,7 +67,7 @@ int main()
     }
 
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmenShaderSource, NULL);
+    glShaderSource(fragmentShader, 1, &fragmenShaderSource_test2, NULL);
     glCompileShader(fragmentShader);
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (!success)
@@ -168,18 +165,6 @@ int main()
     glfwTerminate();
     return 0;
 
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
-
-void processInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        //std::cout <<"按下" << std::endl;
-        glfwSetWindowShouldClose(window, true);
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

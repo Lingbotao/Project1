@@ -1,4 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
@@ -9,9 +8,10 @@
 
 #include <learnopengl/shader_s.h>
 
+
 //  帧缓冲大小函数
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
+void framebuffer_size_test6_1_callback(GLFWwindow* window, int width, int height);
+void processInput_test6_1(GLFWwindow* window);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -26,7 +26,7 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 
-int main()
+int Test6_1()
 {
     glfwInit(); // 初始化GLFW
     //  配置GLFW
@@ -46,7 +46,7 @@ int main()
         return -1;
     }
     glfwMakeContextCurrent(windows);
-    glfwSetFramebufferSizeCallback(windows, framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(windows, framebuffer_size_test6_1_callback);
 
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -195,7 +195,7 @@ int main()
         lastFrame = currentFrame;
 
         //  输入
-        processInput(windows);
+        processInput_test6_1(windows);
         //  渲染指令
         //  设置清空屏幕所用的颜色额
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -243,12 +243,12 @@ int main()
 
 }
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_test6_1_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow* window)
+void processInput_test6_1(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         //std::cout <<"按下" << std::endl;

@@ -4,27 +4,24 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-
-//  帧缓冲大小函数
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
+#include "main.h"
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-const char* vertexShaderSource = "#version 330 core\n"
+const char* vertexShaderSource_test1 = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
     "void main()\n"
     "{\n"
     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
     "}\0";
-const char* fragmenShaderSource = "#version 330 core\n"
+const char* fragmenShaderSource_test1 = "#version 330 core\n"
     "out vec4 FragColor;\n"
     "void main()\n"
     "{\n"
     "   FragColor = vec4(1.0f, 0.5f, 0.2f,1.0f);\n"
     "}\n\0";
-int main()
+int Test1()
 {
     std::cout << "Hello World!\n";
     glfwInit(); // 初始化GLFW
@@ -50,7 +47,7 @@ int main()
         return -1;
     }
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glShaderSource(vertexShader, 1, &vertexShaderSource_test1, NULL);
     glCompileShader(vertexShader);
 
     //  检测glComileShader编译是否成功
@@ -64,7 +61,7 @@ int main()
     }
     
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmenShaderSource, NULL);
+    glShaderSource(fragmentShader, 1, &fragmenShaderSource_test1, NULL);
     glCompileShader(fragmentShader);
 
     //  创建一个程序
@@ -141,18 +138,6 @@ int main()
     glfwTerminate();
     return 0;
 
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
-
-void processInput(GLFWwindow *window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        //std::cout <<"按下" << std::endl;
-        glfwSetWindowShouldClose(window, true);
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

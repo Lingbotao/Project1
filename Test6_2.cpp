@@ -1,4 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stb_image.h>
@@ -12,16 +11,16 @@
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 //  帧缓冲大小函数
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
+void framebuffer_size_test6_2_callback(GLFWwindow* window, int width, int height);
+void processInput_test6_2(GLFWwindow* window);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 //  摄像机系统
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+glm::vec3 cameraPos_test6_2 = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraFront_test6_2 = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp_test6_2 = glm::vec3(0.0f, 1.0f, 0.0f);
 
 bool firstMouse = true;
 float yaw = -90.0f;
@@ -31,11 +30,11 @@ float lastY = 600.0 / 2.0;
 float fov = 45.0f;
 
 //  时间
-float deltaTime = 0.0f;
-float lastFrame = 0.0f;
+float deltaTime_test6_2 = 0.0f;
+float lastFrame_test6_2 = 0.0f;
 
 
-int main()
+int Test6_2()
 {
     glfwInit(); // 初始化GLFW
     //  配置GLFW
@@ -55,7 +54,7 @@ int main()
         return -1;
     }
     glfwMakeContextCurrent(windows);
-    glfwSetFramebufferSizeCallback(windows, framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(windows, framebuffer_size_test6_2_callback);
     glfwSetCursorPosCallback(windows, mouse_callback);
     glfwSetScrollCallback(windows, scroll_callback);
 
@@ -201,11 +200,11 @@ int main()
     {
 
         float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        deltaTime_test6_2 = currentFrame - lastFrame_test6_2;
+        lastFrame_test6_2 = currentFrame;
 
         //  输入
-        processInput(windows);
+        processInput_test6_2(windows);
         //  渲染指令
         //  设置清空屏幕所用的颜色额
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -222,7 +221,7 @@ int main()
         glm::mat4 projection = glm::perspective(glm::radians(fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         ourShader.setMat4("projection", projection);
 
-        glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        glm::mat4 view = glm::lookAt(cameraPos_test6_2, cameraPos_test6_2 + cameraFront_test6_2, cameraUp_test6_2);
         ourShader.setMat4("view", view);
 
         glBindVertexArray(VAO);
@@ -252,26 +251,26 @@ int main()
 
 }
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_test6_2_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
 
-void processInput(GLFWwindow* window)
+void processInput_test6_2(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         //std::cout <<"按下" << std::endl;
         glfwSetWindowShouldClose(window, true);
 
-    float cameraSpeed = 2.5 * deltaTime;
+    float cameraSpeed = 2.5 * deltaTime_test6_2;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        cameraPos += cameraSpeed * cameraFront;
+        cameraPos_test6_2 += cameraSpeed * cameraFront_test6_2;
     if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-        cameraPos -= cameraSpeed * cameraFront;
+        cameraPos_test6_2 -= cameraSpeed * cameraFront_test6_2;
     if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        cameraPos_test6_2 -= glm::normalize(glm::cross(cameraFront_test6_2, cameraUp_test6_2)) * cameraSpeed;
     if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        cameraPos_test6_2 += glm::normalize(glm::cross(cameraFront_test6_2, cameraUp_test6_2)) * cameraSpeed;
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -304,7 +303,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
     front.y = sin(glm::radians(pitch));
     front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-    cameraFront = glm::normalize(front);
+    cameraFront_test6_2 = glm::normalize(front);
 }
 
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
